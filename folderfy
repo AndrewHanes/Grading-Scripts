@@ -1,0 +1,22 @@
+#!/bin/bash
+# Grading Script
+# Author: Andrew Hanes
+
+die() { echo "%*" >&2; exit 1; }
+gradingScript="testcode.sh"
+gradingGuide="grading-guide.txt"
+
+for file in *\ *; do mv "$file" "${file// /_}"; done
+mkdir extra
+mv *\(*\).zip extra
+
+for file in *.zip; do
+	dir=${file%.*}
+	mkdir -p $dir
+	test -f $dir && die "$dir exists and is a file!"
+	mv $file $dir
+	unzip $dir/*.zip -d $dir
+	cp $gradingGuide $dir/grading-guide.txt
+	cp $gradingScript $dir
+	$dir/$gradingScript
+done
