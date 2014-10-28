@@ -1,0 +1,8 @@
+#!/bin/bash
+# Remove spaces from student submissions
+# Author: Andrew Hanes
+
+file names
+for file in *\ *; do mv "$file" "${file// /_}"; done
+mkdir extra
+mv *\(*\).zip extra
